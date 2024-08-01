@@ -1,4 +1,4 @@
-// import styles from "./styles.module.css";
+import { HeaderBasket } from "@components/ecommerce";
 import { Badge, Container, Nav, Navbar } from "react-bootstrap";
 import styles from "./styles.module.css";
 const { headerContainer, headerLogo } = styles;
@@ -9,6 +9,7 @@ const Header = () => {
         <h1 className={headerLogo}>
           <span>Our</span> <Badge>Ecom</Badge>
         </h1>
+        <HeaderBasket />
       </div>
 
       <div>
