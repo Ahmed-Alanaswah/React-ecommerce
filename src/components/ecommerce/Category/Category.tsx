@@ -6,7 +6,7 @@ const { category, categoryImg, categoryTitle } = styles;
 const Category = ({ title, prefix, img }: ICategory) => {
   return (
     <div className={category}>
-      <Link to={`/categories/products/${prefix}`}>
+      <Link to={`/category/products/${prefix}`}>
         <div className={categoryImg}>
           <img src={img} alt={title} />
         </div>

@@ -30,7 +30,7 @@ const Header = () => {
                 <Nav.Link as={NavLink} to="/">
                   Home
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="categories">
+                <Nav.Link as={NavLink} to="category">
                   Categories
                 </Nav.Link>
 

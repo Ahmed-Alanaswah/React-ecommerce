@@ -19,11 +19,11 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/categories",
+        path: "/category",
         element: <Categories />,
       },
       {
-        path: "/categories/products/:prefix",
+        path: "/category/products/:prefix",
         element: <Products />,
         loader: ({ params }) => {
           if (
