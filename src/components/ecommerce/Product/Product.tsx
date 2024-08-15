@@ -35,7 +35,7 @@ const Product = memo(({ id, title, img, price, max, quantity }: TProduct) => {
         <img src={img} alt={title} />
       </div>
       <h2>{title}</h2>
-      <h3>{price} JD</h3>
+      <h3>{Number(price).toFixed(2)} JD</h3>
       <p className={maximumNotice}>
         {quantityReachedMax
           ? "you reach  the limit "

@@ -7,6 +7,7 @@ import Register from "@pages/Register";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { MainLayout } from "@layoutes/index";
 import Error from "@pages/Error";
+import Cart from "@pages/Cart";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
       {
         path: "/category",
