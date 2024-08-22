@@ -35,11 +35,13 @@ const Product = memo(
     }, [isBtnDisabeld]);
 
     const likeToggleHandler = () => {
-      setIsLoading(true);
-      dispatch(actLikeToggle(id))
-        .unwrap()
-        .then(() => setIsLoading(false))
-        .catch(() => setIsLoading(false));
+      if (!isLoading) {
+        setIsLoading(true);
+        dispatch(actLikeToggle(id))
+          .unwrap()
+          .then(() => setIsLoading(false))
+          .catch(() => setIsLoading(false));
+      }
     };
     return (
       <div className={product}>
