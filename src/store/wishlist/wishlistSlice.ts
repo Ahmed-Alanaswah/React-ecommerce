@@ -21,7 +21,7 @@ const wishlistSlice = createSlice({
   name: "wishlist",
   initialState,
   reducers: {
-    productsFullInfoCleanUp: (state) => {
+    cleanWishListProductFullInfo: (state) => {
       state.productsFullInfo = [];
     },
   },
@@ -59,6 +59,6 @@ const wishlistSlice = createSlice({
     });
   },
 });
-export const { productsFullInfoCleanUp } = wishlistSlice.actions;
+export const { cleanWishListProductFullInfo } = wishlistSlice.actions;
 export { actLikeToggle, actGetWishlist };
 export default wishlistSlice.reducer;

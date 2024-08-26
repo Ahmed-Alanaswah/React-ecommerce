@@ -4,6 +4,7 @@ import {
   actGetProductsByItems,
   cartItemChangeQuantity,
   cartItemRemove,
+  cleanProductfullInfo,
 } from "@store/cart/cartSlice";
 import { Loading } from "@components/feedback";
 import { Heading } from "@components/common";
@@ -15,6 +16,9 @@ const Cart = () => {
   );
   useEffect(() => {
     dispatch(actGetProductsByItems());
+    return () => {
+      dispatch(cleanProductfullInfo());
+    };
   }, [dispatch]);
 
   const products = productsFullInfo.map((el) => ({
@@ -36,7 +40,7 @@ const Cart = () => {
   );
   return (
     <>
-      <Heading>Cart</Heading>
+      <Heading title="Cart"></Heading>
       <Loading status={loading} error={error}>
         {products.length ? (
           <>

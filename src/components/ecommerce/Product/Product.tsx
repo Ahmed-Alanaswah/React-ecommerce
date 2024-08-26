@@ -11,6 +11,7 @@ const { product, productImg, maximumNotice, wishlistBtn } = styles;
 
 const Product = memo(
   ({ id, title, img, price, max, quantity, isLiked }: TProduct) => {
+    console.log("llll");
     const dispatch = useAppDispatch();
     const [isBtnDisabeld, setIsBtnDisabled] = useState(false);
     const [isLoading, setIsLoading] = useState(false);

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { Container } from "react-bootstrap";
 import {
   actGetProductsByCatPrefix,
-  productsCleanUp,
+  cleanUpProductRecords,
 } from "@store/products/productsSlice";
 import { Product } from "@components/ecommerce";
 import { Loading } from "@components/feedback";
@@ -27,15 +27,13 @@ const Products = () => {
     dispatch(actGetProductsByCatPrefix(prefix as string));
 
     return () => {
-      dispatch(productsCleanUp());
+      dispatch(cleanUpProductRecords());
     };
   }, [dispatch, prefix]);
 
   return (
     <Container>
-      <Heading>
-        <span className="text-capetalize">{prefix}</span> Products
-      </Heading>
+      <Heading title={`${prefix?.toUpperCase()} Products`}></Heading>
       <Loading status={loading} error={error}>
         <GridList
           records={productFullInfo}
