@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 const { container, wrapper } = styles;
 
 const MainLayout = () => {
+  console.log("filre");
   return (
     <Container className={container}>
       <Header />
