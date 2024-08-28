@@ -20,9 +20,10 @@ const useProducts = () => {
   }));
 
   useEffect(() => {
-    dispatch(actGetProductsByCatPrefix(prefix as string));
-
+    const promise = dispatch(actGetProductsByCatPrefix(prefix as string));
     return () => {
+      promise.abort();
+
       dispatch(cleanUpProductRecords());
     };
   }, [dispatch, prefix]);

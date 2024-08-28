@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
-import { ICategory } from "@customTypes/category";
+import { ICategory } from "@types";
 const { category, categoryImg, categoryTitle } = styles;
 
 const Category = ({ title, prefix, img }: ICategory) => {
