@@ -8,8 +8,9 @@ const Wishlist = () => {
   return (
     <>
       <Heading title="Wishlist"></Heading>
-      <Loading status={loading} error={error}>
+      <Loading status={loading} error={error} type="product">
         <GridList
+          emptyMessage="There are no product"
           records={records}
           renderItem={(record) => <Product {...record} />}
         />
