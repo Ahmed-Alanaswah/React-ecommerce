@@ -1,4 +1,9 @@
 {
+  "users": [
+    {
+      "email": "ahmed@ahmed.com"
+    }
+  ],
   "category": [
     {
       "id": 1,

@@ -5,18 +5,42 @@ import { Heading } from "@components/common";
 import { Col, Row } from "react-bootstrap";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema, signUpType } from "../validations/signUpSchema";
-// import { signUpSchema, signUpType } from "@validations/signUpSchema";
 import { Input } from "@components/Form";
+import useCheckEmailAvelability from "@hooks/useCheckEmailAvelability";
+
 function Register() {
+  const {
+    resetCheckEmailAvailability,
+    emailAvailabilityStatus,
+    enteredEmail,
+    checkEmailAvailability,
+  } = useCheckEmailAvelability();
   const {
     register,
     handleSubmit,
+    getFieldState,
+    trigger,
     formState: { errors },
   } = useForm<signUpType>({
     mode: "onBlur",
     resolver: zodResolver(signUpSchema),
   });
   const submitForm: SubmitHandler<signUpType> = (data) => console.log(data);
+
+  const emailOnBlurHandler = async (e: React.FocusEvent<HTMLInputElement>) => {
+    await trigger("email");
+    const value = e.target.value;
+    const { isDirty, invalid } = getFieldState("email");
+    if (isDirty && !invalid && enteredEmail !== value) {
+      console.log(value);
+      checkEmailAvailability(value);
+    }
+
+    if (isDirty && invalid && enteredEmail) {
+      resetCheckEmailAvailability();
+    }
+  };
+
   return (
     <>
       <Heading title="User Register" />
@@ -39,8 +63,28 @@ function Register() {
               label="Email address"
               name="email"
               type="email"
-              error={errors.email?.message}
+              error={
+                errors.email?.message
+                  ? errors.email?.message
+                  : emailAvailabilityStatus == "notAvailable"
+                  ? "this email  already exist"
+                  : emailAvailabilityStatus == "failed"
+                  ? "error from the server"
+                  : ""
+              }
               register={register}
+              onBlur={emailOnBlurHandler}
+              formText={
+                emailAvailabilityStatus == "checking"
+                  ? "checking email please wait"
+                  : ""
+              }
+              success={
+                emailAvailabilityStatus == "available"
+                  ? "this email available for use"
+                  : ""
+              }
+              disabled={emailAvailabilityStatus == "checking"}
             />
             <Input
               label="Password"
@@ -58,7 +102,12 @@ function Register() {
               register={register}
             />
 
-            <Button variant="info" type="submit" style={{ color: "white" }}>
+            <Button
+              variant="info"
+              type="submit"
+              style={{ color: "white" }}
+              disabled={emailAvailabilityStatus == "checking"}
+            >
               Submit
             </Button>
           </Form>
