@@ -3,5 +3,12 @@ import Product from "./Product/Product";
 import CartItem from "./CartItem/CartItem";
 import CartSubtotalPrice from "./CartSubTotalPrice/CartSubtotalPrice";
 import CartItemList from "./CartItemList/CartItemList";
-
-export { Category, Product, CartItem, CartSubtotalPrice, CartItemList };
+import PageSuspenseFallback from "./PageSuspenseFallback/PageSuspenseFallback";
+export {
+  Category,
+  Product,
+  CartItem,
+  CartSubtotalPrice,
+  CartItemList,
+  PageSuspenseFallback,
+};

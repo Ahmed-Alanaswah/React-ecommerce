@@ -19,7 +19,7 @@ const Cart = () => {
             <CartSubtotalPrice products={products} />
           </>
         ) : (
-          <LottieHandler type="empty" />
+          <LottieHandler type="empty" message="Your cart is empty" />
         )}
       </Loading>
     </>
