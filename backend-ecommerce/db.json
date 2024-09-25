@@ -13,6 +13,13 @@
       "firstName": "anaswah",
       "lastName": "anaswah",
       "id": 2
+    },
+    {
+      "email": "ahmed@anaswah3.com",
+      "password": "$2a$10$8CSROjx5aNVK2J7yRWGGX.xAiE26Mi7Pgf.umb1bNHyetLObpNrQa",
+      "firstName": "ahmad",
+      "lastName": "ali",
+      "id": 3
     }
   ],
   "category": [
