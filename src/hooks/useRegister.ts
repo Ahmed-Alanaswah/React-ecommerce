@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import useCheckEmailAvelability from "./useCheckEmailAvelability";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { actAuthRegister, resetErrorHnadler } from "@store/auth/authSlice";
@@ -10,7 +10,7 @@ import { useEffect } from "react";
 const useRegister = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector((state) => state.auth);
+  const { loading, error, accessToken } = useAppSelector((state) => state.auth);
   const {
     resetCheckEmailAvailability,
     emailAvailabilityStatus,
@@ -56,6 +56,9 @@ const useRegister = () => {
       dispatch(resetErrorHnadler());
     };
   }, [dispatch]);
+  if (accessToken) {
+    Navigate({ to: "/", replace: true });
+  }
 
   return {
     submitForm,

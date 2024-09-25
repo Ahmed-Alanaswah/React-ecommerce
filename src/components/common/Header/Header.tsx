@@ -56,7 +56,9 @@ const Header = () => {
                     title={`Welcome: ${user?.firstName} ${user?.lastName}`}
                     id="basic-nav-dropdown"
                   >
-                    <NavDropdown.Item>Profiles</NavDropdown.Item>
+                    <NavDropdown.Item as={NavLink} to="profile">
+                      Profiles
+                    </NavDropdown.Item>
                     <NavDropdown.Item>Orders</NavDropdown.Item>
 
                     <NavDropdown.Divider />

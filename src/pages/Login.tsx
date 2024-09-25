@@ -13,13 +13,15 @@ function Login() {
     loading,
     error,
     searchParames,
-    setSearchParams,
   } = useLogin();
   return (
     <>
       <Heading title="User Register" />
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
+          {searchParames.get("message") === "login_required" && (
+            <Alert variant="danger">you need to login</Alert>
+          )}
           {searchParames.get("message") === "account_created" && (
             <Alert variant="success">
               your account successfully created, please login

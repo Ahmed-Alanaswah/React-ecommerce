@@ -3,7 +3,7 @@ import { actAuthLogin } from "@store/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { signInSchema, signInType } from "../validations/signInSchema";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, Navigate } from "react-router-dom";
 import { resetErrorHnadler } from "@store/auth/authSlice";
 import { useEffect } from "react";
 
@@ -11,7 +11,7 @@ const useLogin = () => {
   const [searchParames, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { error, loading } = useAppSelector((state) => state.auth);
+  const { error, loading, accessToken } = useAppSelector((state) => state.auth);
   const {
     register,
     handleSubmit,
@@ -21,7 +21,7 @@ const useLogin = () => {
     resolver: zodResolver(signInSchema),
   });
   const submitForm: SubmitHandler<signInType> = async (data) => {
-    if (searchParames.get("message") == "account_created") {
+    if (searchParames.get("message")) {
       setSearchParams("");
     }
     const { email, password } = data;
@@ -31,13 +31,13 @@ const useLogin = () => {
   };
 
   useEffect(() => {
-    // const promise = dispatch(actGetCategories());
     return () => {
-      // promise.abort();
       dispatch(resetErrorHnadler());
     };
   }, [dispatch]);
-
+  if (accessToken) {
+    Navigate({ to: "/", replace: true });
+  }
   return {
     submitForm,
     handleSubmit,
