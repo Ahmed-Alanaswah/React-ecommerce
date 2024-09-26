@@ -123,18 +123,18 @@
   "wishlist": [
     {
       "userId": 1,
-      "productId": 1,
-      "id": 4
+      "productId": 3,
+      "id": 6
     },
     {
       "userId": 1,
       "productId": 2,
-      "id": 5
+      "id": 8
     },
     {
       "userId": 1,
-      "productId": 3,
-      "id": 6
+      "productId": 1,
+      "id": 9
     }
   ]
 }

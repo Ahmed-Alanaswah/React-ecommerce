@@ -4,11 +4,18 @@ import styles from "./styles.module.css";
 import HeaderLeftBar from "./HeaderLeftBar/HeaderLeftBar";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { authLogout } from "@store/auth/authSlice";
+import { useEffect } from "react";
+import { actGetWishlist } from "@store/wishlist/wishlistSlice";
 const { headerContainer, headerLogo } = styles;
 
 const Header = () => {
   const dispatch = useAppDispatch();
   const { accessToken, user } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(actGetWishlist("productsIds"));
+  }, [dispatch, accessToken]);
+
   return (
     <header>
       <div className={headerContainer}>
