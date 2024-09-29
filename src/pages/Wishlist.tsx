@@ -5,6 +5,8 @@ import useWishlist from "@hooks/useWishlist";
 
 const Wishlist = () => {
   const { loading, error, records } = useWishlist();
+
+  console.log("//////", records);
   return (
     <>
       <Heading title="Wishlist"></Heading>
