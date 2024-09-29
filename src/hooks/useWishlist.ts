@@ -26,7 +26,6 @@ const useWishlist = () => {
     isLiked: true,
     authenticated: true,
   }));
-  console.log("//////5555555555", records);
 
   return { loading, error, records };
 };

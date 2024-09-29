@@ -50,9 +50,7 @@ const useRegister = () => {
     }
   };
   useEffect(() => {
-    // const promise = dispatch(actGetCategories());
     return () => {
-      // promise.abort();
       dispatch(resetErrorHnadler());
     };
   }, [dispatch]);
