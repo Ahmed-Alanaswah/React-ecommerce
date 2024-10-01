@@ -40,8 +40,8 @@ const wishlistSlice = createSlice({
       }
     });
     builder.addCase(actLikeToggle.rejected, (state, action) => {
-      if (action.payload && typeof action.payload == "string")
-        state.error = action.payload;
+      state.loading = "failed";
+      if (isString(action.payload)) state.error = action.payload;
     });
     //get wishlist items
     builder.addCase(actGetWishlist.pending, (state) => {

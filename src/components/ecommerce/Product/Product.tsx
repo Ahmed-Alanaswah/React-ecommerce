@@ -8,7 +8,9 @@ import Like from "@assets/svg/like.svg?react";
 import LikeFill from "@assets/svg/like-fill.svg?react";
 import { actLikeToggle } from "@store/wishlist/wishlistSlice";
 import ModalAlert from "@components/common/modal/ModalAlert";
-const { product, productImg, maximumNotice, wishlistBtn } = styles;
+import ProductInfo from "../ProductInfo/ProductInfo";
+
+const { maximumNotice, wishlistBtn } = styles;
 
 const Product = memo(
   ({
@@ -59,7 +61,7 @@ const Product = memo(
     };
 
     return (
-      <div className={product}>
+      <ProductInfo title={title} price={price} img={img}>
         <ModalAlert show={show} setShow={setShow}>
           please login required
         </ModalAlert>
@@ -72,11 +74,7 @@ const Product = memo(
             <Like />
           )}
         </div>
-        <div className={productImg}>
-          <img src={img} alt={title} />
-        </div>
-        <h2>{title}</h2>
-        <h3>{Number(price).toFixed(2)} JD</h3>
+
         <p className={maximumNotice}>
           {quantityReachedMax
             ? "you reach  the limit "
@@ -85,7 +83,7 @@ const Product = memo(
         <Button
           onClick={addToCardHandler}
           variant="info"
-          style={{ color: "white" }}
+          style={{ color: "white", width: "100%" }}
           disabled={isBtnDisabeld}
         >
           {isBtnDisabeld ? (
@@ -97,7 +95,7 @@ const Product = memo(
             " Add to cart"
           )}
         </Button>
-      </div>
+      </ProductInfo>
     );
   }
 );
