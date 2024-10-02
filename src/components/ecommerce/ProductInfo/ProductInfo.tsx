@@ -2,10 +2,11 @@ import styles from "./styles.module.css";
 type TProductInfoProps = {
   title: string;
   img: string;
-  price: string;
+  price: number;
   direction?: "row" | "column";
   children?: React.ReactNode;
   style?: React.CSSProperties;
+  quantity?: number;
 };
 
 const ProductInfo = ({
@@ -14,6 +15,7 @@ const ProductInfo = ({
   price,
   direction = "row",
   style,
+  quantity,
   children,
 }: TProductInfoProps) => {
   return (
@@ -24,6 +26,8 @@ const ProductInfo = ({
       <div className={styles[`productInfo-${direction}`]}>
         <h2>{title}</h2>
         <h3>{Number(price).toFixed(2)} EGP</h3>
+        {quantity && <h3>total qunatity: {quantity}</h3>}
+        {quantity && <h3>total price: {(quantity * price).toFixed(2)}</h3>}
         {children}
       </div>
     </div>

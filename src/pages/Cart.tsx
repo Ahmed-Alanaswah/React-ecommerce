@@ -9,6 +9,7 @@ const Cart = () => {
     changeQuantityHandler,
     removeItemHandler,
     userAccessToken,
+    plcaeOrderStatus,
     loading,
     error,
   } = useCart();
@@ -28,6 +29,11 @@ const Cart = () => {
               userAccessToken={userAccessToken}
             />
           </>
+        ) : plcaeOrderStatus == "succeeded" ? (
+          <LottieHandler
+            type="success"
+            message="Your order has benn placed succesfully"
+          />
         ) : (
           <LottieHandler type="empty" message="Your cart is empty" />
         )}
