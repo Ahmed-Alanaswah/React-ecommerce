@@ -16,10 +16,12 @@ const useCart = () => {
 
   const userAccessToken = useAppSelector((state) => state.auth.accessToken);
   const plcaeOrderStatus = useAppSelector((state) => state.orders.loading);
+
   const products = productsFullInfo.map((el) => ({
     ...el,
     quantity: items[el.id],
   }));
+
   const changeQuantityHandler = useCallback(
     (id: number, quantity: number) => {
       dispatch(cartItemChangeQuantity({ id, quantity }));

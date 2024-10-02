@@ -27,7 +27,7 @@ const Orders = () => {
               key={el.id}
               title={el.title}
               img={el.img}
-              price={el.price}
+              price={+el.price}
               direction="column"
               style={{ marginBottom: "10px" }}
               quantity={el.quantity}

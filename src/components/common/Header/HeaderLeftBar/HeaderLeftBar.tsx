@@ -18,13 +18,13 @@ const HeaderLeftBar = () => {
         title="Wishlist"
         totalQuantity={wishlistTotalQuantity}
         svgIcon={<Whishlist title="wishlist" />}
-        to="wishlist"
+        to="/wishlist"
       />
       <HeaderCounter
         title="Cart"
         totalQuantity={cartTotalQuantity}
         svgIcon={<Logo title="cart" />}
-        to="cart"
+        to="/cart"
       />
     </div>
   );
