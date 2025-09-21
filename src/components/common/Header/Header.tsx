@@ -1,12 +1,11 @@
 import { NavLink } from "react-router-dom";
-import { Badge, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import styles from "./styles.module.css";
 import HeaderLeftBar from "./HeaderLeftBar/HeaderLeftBar";
 import { useAppSelector, useAppDispatch } from "@store/hooks";
 import { authLogout } from "@store/auth/authSlice";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { actGetWishlist } from "@store/wishlist/wishlistSlice";
-const { headerContainer, headerLogo } = styles;
+const { headerContainer, headerLogo, navLinks, logoIcon, navRight } = styles;
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -16,74 +15,130 @@ const Header = () => {
     dispatch(actGetWishlist("productsIds"));
   }, [dispatch, accessToken]);
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    }
+    if (isDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+
   return (
     <header>
       <div className={headerContainer}>
-        <h1 className={headerLogo}>
-          <span>Our</span> <Badge>Ecom</Badge>
-        </h1>
-
-        <HeaderLeftBar />
-      </div>
-
-      <div>
-        <Navbar
-          bg="dark"
-          data-bs-theme="dark"
-          expand="lg"
-          className="bg-body-tertiary"
-        >
-          <Container>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="me-auto">
-                <Nav.Link as={NavLink} to="/">
-                  Home
-                </Nav.Link>
-                <Nav.Link as={NavLink} to="category">
-                  Categories
-                </Nav.Link>
-
-                <Nav.Link as={NavLink} to="about-us">
-                  About
-                </Nav.Link>
-              </Nav>
-              <Nav>
-                {!accessToken ? (
-                  <>
-                    <Nav.Link as={NavLink} to="login">
-                      Login
-                    </Nav.Link>
-                    <Nav.Link as={NavLink} to="register">
-                      Register
-                    </Nav.Link>
-                  </>
-                ) : (
-                  <NavDropdown
-                    title={`Welcome: ${user?.firstName} ${user?.lastName}`}
-                    id="basic-nav-dropdown"
+        <div className={headerLogo}>
+          <img src="/src/assets/svg/cart.svg" alt="Logo" className={logoIcon} />
+          <span
+            style={{
+              fontWeight: 800,
+              fontSize: "2.2rem",
+              marginLeft: 8,
+              color: "#6366f1",
+            }}
+          >
+            ShopifyX
+          </span>
+        </div>
+        <nav className={navLinks}>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/category">Categories</NavLink>
+          <NavLink to="/about-us">About</NavLink>
+        </nav>
+        <div className={navRight}>
+          <HeaderLeftBar />
+          {!accessToken ? (
+            <>
+              <NavLink to="/login">Login</NavLink>
+              <NavLink to="/register">Register</NavLink>
+            </>
+          ) : (
+            <div className="user-dropdown" ref={dropdownRef}>
+              <button
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "#6366f1",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                }}
+                onClick={() => setIsDropdownOpen((open) => !open)}
+              >
+                {user ? `${user.firstName} ${user.lastName}` : "Account"}
+              </button>
+              {isDropdownOpen && (
+                <div
+                  className="dropdown-content"
+                  style={{
+                    position: "absolute",
+                    background: "#fff",
+                    color: "#6366f1",
+                    boxShadow: "0 2px 8px #6366f122",
+                    borderRadius: 16,
+                    marginTop: 12,
+                    minWidth: 160,
+                    zIndex: 10,
+                    padding: "16px 0",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                  }}
+                >
+                  <NavLink
+                    to="/profile"
+                    style={{
+                      padding: "8px 24px",
+                      borderRadius: "8px",
+                      fontWeight: 600,
+                    }}
                   >
-                    <NavDropdown.Item as={NavLink} to="profile" end>
-                      Profiles
-                    </NavDropdown.Item>
-                    <NavDropdown.Item as={NavLink} to="profile/orders">
-                      Orders
-                    </NavDropdown.Item>
-
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item
-                      as={NavLink}
-                      to="/"
-                      onClick={() => dispatch(authLogout())}
-                    >
-                      Logout
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                )}
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
+                    Profile
+                  </NavLink>
+                  <NavLink
+                    to="/profile/orders"
+                    style={{
+                      padding: "8px 24px",
+                      borderRadius: "8px",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Orders
+                  </NavLink>
+                  <hr style={{ margin: "8px 0" }} />
+                  <button
+                    style={{
+                      background:
+                        "linear-gradient(90deg, #6366f1 0%, #60a5fa 100%)",
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: "8px",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                      padding: "8px 24px",
+                    }}
+                    onClick={() => {
+                      setIsDropdownOpen(false);
+                      dispatch(authLogout());
+                    }}
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );

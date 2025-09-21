@@ -8,9 +8,36 @@ const Category = ({ title, prefix, img }: ICategory) => {
     <div className={category}>
       <Link to={`/category/products/${prefix}`}>
         <div className={categoryImg}>
-          <img src={img} alt={title} />
+          {img ? (
+            <img
+              src={img}
+              alt={title}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                borderRadius: "16px",
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                background: "#e0e7ff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "16px",
+                color: "#6366f1",
+                fontWeight: 700,
+              }}
+            >
+              No Image
+            </div>
+          )}
         </div>
-        <h4 className={categoryTitle}>Title</h4>
+        <h4 className={categoryTitle}>{title}</h4>
       </Link>
     </div>
   );

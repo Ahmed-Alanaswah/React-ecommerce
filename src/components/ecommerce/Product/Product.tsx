@@ -10,7 +10,7 @@ import { actLikeToggle } from "@store/wishlist/wishlistSlice";
 import ModalAlert from "@components/common/modal/ModalAlert";
 import ProductInfo from "../ProductInfo/ProductInfo";
 
-const { maximumNotice, wishlistBtn } = styles;
+const { product, productImg } = styles;
 
 const Product = memo(
   ({
@@ -34,15 +34,12 @@ const Product = memo(
       setIsBtnDisabled(true);
     };
 
+    // Only use useEffect for button debounce logic
     useEffect(() => {
-      if (!isBtnDisabeld) {
-        return;
-      }
-
+      if (!isBtnDisabeld) return;
       const debounce = setTimeout(() => {
         setIsBtnDisabled(false);
       }, 300);
-
       return () => clearTimeout(debounce);
     }, [isBtnDisabeld]);
 
@@ -61,40 +58,71 @@ const Product = memo(
     };
 
     return (
-      <ProductInfo title={title} price={price} img={img}>
-        <ModalAlert show={show} setShow={setShow}>
-          please login required
-        </ModalAlert>
-        <div className={wishlistBtn} onClick={likeToggleHandler}>
-          {isLoading ? (
-            <Spinner animation="border" size="sm" color="primary" />
-          ) : isLiked ? (
-            <LikeFill />
-          ) : (
-            <Like />
-          )}
+      <ProductInfo title={title} price={Number(price)} img={img}>
+        <div className={product}>
+          <div className={productImg}>
+            {img ? (
+              <img
+                src={img}
+                alt={title}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: "16px",
+                }}
+              />
+            ) : (
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  background: "#e0e7ff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "16px",
+                  color: "#6366f1",
+                  fontWeight: 700,
+                }}
+              >
+                No Image
+              </div>
+            )}
+          </div>
+          <ModalAlert show={show} setShow={setShow}>
+            please login required
+          </ModalAlert>
+          <div onClick={likeToggleHandler}>
+            {isLoading ? (
+              <Spinner animation="border" size="sm" color="primary" />
+            ) : isLiked ? (
+              <LikeFill />
+            ) : (
+              <Like />
+            )}
+          </div>
+          <p>
+            {quantityReachedMax
+              ? "you reach  the limit "
+              : `you can add ${currentremainingQuantity} time(s)`}
+          </p>
+          <Button
+            onClick={addToCardHandler}
+            variant="info"
+            style={{ color: "white", width: "100%" }}
+            disabled={isBtnDisabeld}
+          >
+            {isBtnDisabeld ? (
+              <>
+                <Spinner animation="border" size="sm" />
+                Loading...
+              </>
+            ) : (
+              " Add to cart"
+            )}
+          </Button>
         </div>
-
-        <p className={maximumNotice}>
-          {quantityReachedMax
-            ? "you reach  the limit "
-            : `you can add ${currentremainingQuantity} time(s)`}
-        </p>
-        <Button
-          onClick={addToCardHandler}
-          variant="info"
-          style={{ color: "white", width: "100%" }}
-          disabled={isBtnDisabeld}
-        >
-          {isBtnDisabeld ? (
-            <>
-              <Spinner animation="border" size="sm" />
-              Loading...
-            </>
-          ) : (
-            " Add to cart"
-          )}
-        </Button>
       </ProductInfo>
     );
   }

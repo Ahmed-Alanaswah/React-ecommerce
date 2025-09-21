@@ -5,10 +5,10 @@ const ProfileLayout = () => {
     <Row>
       <Col md={3}>
         <ListGroup>
-          <ListGroup.Item as={NavLink} to="" end>
+          <ListGroup.Item as={NavLink} to="/profile" end>
             Account Info
           </ListGroup.Item>
-          <ListGroup.Item as={NavLink} to="orders">
+          <ListGroup.Item as={NavLink} to="/profile/orders">
             Orders
           </ListGroup.Item>
         </ListGroup>

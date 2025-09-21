@@ -1,23 +1,43 @@
 .headerContainer {
-  padding: 20px 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 0 0 0;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  background: none;
 }
 
 .headerLogo {
-  color: inherit;
-  text-decoration: inherit;
-  font-size: 2.3rem;
-  margin: 0;
-}
-
-.headerLogo h1 {
-  margin: 0;
   display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.headerLogo h1 span {
-  display: block;
-  margin-right: 5px;
+.logoIcon {
+  width: 48px;
+  height: 48px;
+  filter: drop-shadow(0 2px 8px #6366f1aa);
+}
+
+.navLinks {
+  display: flex;
+  gap: 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.navLinks a {
+  color: #6366f1;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.navLinks a:hover {
+  color: #60a5fa;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
